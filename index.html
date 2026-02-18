@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InvoiceIQ — White-Label E-Invoicing for Advisory Firms</title>
+<title>Taxaura — White-Label E-Invoicing for Advisory Firms</title>
 <style>
   :root {
     --navy: #050d1f;
@@ -22,14 +22,10 @@
   html { scroll-behavior: smooth; }
   body { background: var(--navy); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
 
-  nav { position: fixed; top:0; width:100%; z-index:100; padding: 18px 6%; display:flex; justify-content:space-between; align-items:center; background: rgba(5,13,31,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-  .logo { font-size: 1.4rem; font-weight: 800; letter-spacing:-0.5px; }
+  /* TOP LOGO BAR */
+  .topbar { position: fixed; top:0; left:0; width:100%; z-index:100; padding: 18px 6%; background: rgba(5,13,31,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .logo { font-size: 1.4rem; font-weight: 800; letter-spacing:-0.5px; display:inline-block; }
   .logo span { color: var(--electric); }
-  .nav-links { display:flex; gap:28px; align-items:center; }
-  .nav-links a { color: var(--muted); text-decoration:none; font-size:.9rem; transition:.2s; }
-  .nav-links a:hover { color: var(--electric); }
-  .nav-cta { background: var(--blue); color:#fff !important; padding: 10px 22px; border-radius:8px; font-weight:600; font-size:.85rem !important; }
-  .nav-cta:hover { background: var(--electric) !important; color: var(--navy) !important; }
 
   /* HERO */
   .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding: 120px 6% 80px; gap:60px; position:relative; overflow:hidden; }
@@ -44,8 +40,6 @@
   .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
   .btn-primary { background: linear-gradient(135deg, var(--blue), var(--electric)); color:#fff; padding:16px 36px; border-radius:10px; font-weight:700; font-size:1rem; text-decoration:none; border:none; cursor:pointer; transition:.3s; display:inline-block; }
   .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 12px 40px rgba(0,87,255,0.4); }
-  .btn-ghost { background:transparent; border:1.5px solid var(--border); color:var(--text); padding:16px 36px; border-radius:10px; font-weight:600; font-size:1rem; text-decoration:none; cursor:pointer; transition:.3s; display:inline-block; }
-  .btn-ghost:hover { border-color:var(--electric); color:var(--electric); }
   .hero-stats { display:flex; gap:32px; margin-top:50px; padding-top:36px; border-top:1px solid var(--border); flex-wrap:wrap; }
   .stat h3 { font-size:1.8rem; font-weight:900; color:#fff; }
   .stat h3 span { color:var(--electric); }
@@ -63,7 +57,6 @@
   .mockup-title { font-size:.75rem; color:var(--muted); margin-left:8px; }
   .mockup-body { padding:24px; }
   .mockup-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
-  .mockup-logo-box { }
   .mockup-logo-box .firm { font-size:1.1rem; font-weight:900; color:#fff; }
   .mockup-logo-box .firm span { color:var(--electric); }
   .mockup-logo-box p { font-size:.72rem; color:var(--muted); margin-top:3px; }
@@ -181,10 +174,18 @@
   .cta-section h2 { font-size:clamp(2rem,4vw,3rem); font-weight:900; margin-bottom:16px; position:relative; }
   .cta-section p { color:var(--muted); font-size:1.05rem; margin-bottom:40px; max-width:500px; margin-left:auto; margin-right:auto; position:relative; }
   .cta-form { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; }
-  .cta-form input { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; color:var(--text); font-size:.95rem; width:220px; outline:none; transition:.2s; }
+  .cta-form { display:flex; flex-direction:column; align-items:center; gap:14px; position:relative; max-width:520px; margin:0 auto; }
+  .cta-form-row { display:flex; gap:14px; width:100%; flex-wrap:wrap; }
+  .cta-form input { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; color:var(--text); font-size:.95rem; flex:1; min-width:180px; outline:none; transition:.2s; }
   .cta-form input:focus { border-color:var(--electric); }
   .cta-form input::placeholder { color:var(--muted); }
+  .cta-form .btn-primary { width:100%; text-align:center; }
   .cta-note { margin-top:16px; font-size:.8rem; color:var(--muted); position:relative; }
+  .cta-success { display:none; flex-direction:column; align-items:center; gap:16px; position:relative; }
+  .cta-success .success-icon { font-size:3rem; }
+  .cta-success h3 { font-size:1.5rem; font-weight:900; color:#fff; }
+  .cta-success p { color:var(--muted); font-size:1rem; line-height:1.6; max-width:400px; text-align:center; }
+  .cta-success .success-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(0,255,140,0.08); border:1px solid rgba(0,255,140,0.25); border-radius:50px; padding:10px 22px; font-size:.85rem; font-weight:700; color:#00ff8c; }
 
   footer { border-top:1px solid var(--border); padding:30px 6%; display:flex; justify-content:space-between; align-items:center; }
   footer p { font-size:.82rem; color:var(--muted); }
@@ -194,22 +195,15 @@
     .hero-visual { display:none; }
     .opp-grid, .pricing-grid, .qual-grid { grid-template-columns:1fr; }
     .steps::before { display:none; }
-    .nav-links { display:none; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">Invoice<span>IQ</span></div>
-  <div class="nav-links">
-    <a href="#threat">The Risk</a>
-    <a href="#opportunity">Opportunity</a>
-    <a href="#how">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#cta" class="nav-cta">Book a Call</a>
-  </div>
-</nav>
+<!-- TOP LOGO BAR -->
+<div class="topbar">
+  <div class="logo">Tax<span>aura</span></div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -219,7 +213,6 @@
     <p>The UAE e-invoicing mandate is here. Accounting & advisory firms that move first will own long-term recurring revenue — and their clients' technology stack. Those that don't will hand them to someone else.</p>
     <div class="hero-btns">
       <a href="#cta" class="btn-primary">Book a Partner Discovery Call</a>
-      <a href="#opportunity" class="btn-ghost">See How It Works</a>
     </div>
     <div class="hero-stats">
       <div class="stat"><h3>100<span>%</span></h3><p>Revenue owned by you</p></div>
@@ -228,7 +221,7 @@
     </div>
   </div>
 
-  <!-- HERO VISUAL: invoice mockup -->
+  <!-- HERO VISUAL -->
   <div class="hero-visual">
     <div class="invoice-mockup">
       <div class="mockup-bar">
@@ -239,7 +232,7 @@
         <div class="mockup-header">
           <div class="mockup-logo-box">
             <div class="firm">Your<span>Firm</span></div>
-            <p>Powered by InvoiceIQ (invisible to client)</p>
+            <p>Powered by Taxaura (invisible to client)</p>
           </div>
           <span class="inv-badge">✓ UAE Compliant</span>
         </div>
@@ -398,7 +391,7 @@
 
 <!-- WHY US -->
 <section>
-  <div class="section-label">🤖 Why InvoiceIQ</div>
+  <div class="section-label">🤖 Why Taxaura</div>
   <h2 class="section-title">Built for the UAE Mandate.<br>Designed for Advisory Firms.</h2>
   <p class="section-sub">We're not a generic SaaS platform. We're an AI-native, compliance-first technology partner built specifically for the UAE regulatory landscape.</p>
   <div class="features-grid">
@@ -478,10 +471,10 @@
     </div>
     <div class="pricing-card featured">
       <h3>Revenue Share</h3>
-      <p class="price-desc">Zero upfront investment. We split revenue 50/50 — you handle sales and client relationships, we handle absolutely everything else.</p>
+      <p class="price-desc">Zero upfront investment. You handle sales and client relationships — we handle absolutely everything else. Revenue sharing terms are agreed on a per-deal basis.</p>
       <ul>
         <li>No platform fees — zero upfront financial commitment</li>
-        <li>50/50 revenue split on all client billings you generate</li>
+        <li>Revenue sharing structured and agreed per deal</li>
         <li>You own the client billing relationship and contract</li>
         <li>Full product development, implementation & support by us</li>
         <li>Lowest-risk entry point with a clear path to Platform model</li>
@@ -527,40 +520,46 @@
 <!-- CTA -->
 <section class="cta-section" id="cta">
   <h2>Ready to Own the<br>E-Invoicing Mandate?</h2>
-  <p>Join the accounting and advisory firms already building long-term technology revenue with InvoiceIQ. Let's talk.</p>
-  <form class="cta-form" name="partner-leads" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="partner-leads">
-    <input type="hidden" name="bot-field" style="display:none">
-    <input type="text" name="name" placeholder="Your name" required>
-    <input type="text" name="firm" placeholder="Firm name" required>
-    <input type="email" name="email" placeholder="Work email" required>
-    <button type="submit" class="btn-primary" style="cursor:pointer;">Book Discovery Call →</button>
-  </form>
-  <div id="form-success" style="display:none; margin-top:20px; background:rgba(0,255,140,0.08); border:1px solid rgba(0,255,140,0.3); border-radius:12px; padding:18px 28px; position:relative;">
-    <p style="color:#00ff8c; font-weight:700; font-size:1rem;">✅ Thanks! We'll be in touch within 24 hours.</p>
-    <p style="color:var(--muted); font-size:.85rem; margin-top:6px;">We've received your details and will reach out to schedule your discovery call.</p>
+  <p>Join the accounting and advisory firms already building long-term technology revenue with Taxaura. Let's talk.</p>
+  <div class="cta-form" id="leadForm">
+    <div class="cta-form-row">
+      <input type="text" id="f-name" placeholder="Your name">
+      <input type="text" id="f-firm" placeholder="Firm name">
+    </div>
+    <div class="cta-form-row">
+      <input type="email" id="f-email" placeholder="Work email">
+      <input type="tel" id="f-phone" placeholder="Phone number">
+    </div>
+    <button class="btn-primary" onclick="submitLead()">Book Discovery Call →</button>
   </div>
-  <p class="cta-note">No commitment. 30-minute call. We'll show you exactly how the model works for your firm size.</p>
+  <div class="cta-success" id="leadSuccess">
+    <div class="success-icon">🎉</div>
+    <h3>You're on the list!</h3>
+    <p>Thanks for reaching out. Our partner team will contact you within 1 business day to schedule your discovery call.</p>
+    <div class="success-badge">✓ Lead received — we'll be in touch shortly</div>
+  </div>
+  <p class="cta-note" id="leadNote">No commitment. 30-minute call. We'll show you exactly how the model works for your firm size.</p>
   <script>
-    document.querySelector('form[name="partner-leads"]').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = this;
-      const data = new FormData(form);
-      fetch('/', { method: 'POST', body: data })
-        .then(() => {
-          form.style.display = 'none';
-          document.getElementById('form-success').style.display = 'block';
-        })
-        .catch(() => {
-          alert('Something went wrong. Please try again.');
-        });
-    });
+    function submitLead() {
+      const name = document.getElementById('f-name').value.trim();
+      const firm = document.getElementById('f-firm').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const phone = document.getElementById('f-phone').value.trim();
+      if (!name || !email) {
+        alert('Please enter at least your name and email to continue.');
+        return;
+      }
+      document.getElementById('leadForm').style.display = 'none';
+      document.getElementById('leadNote').style.display = 'none';
+      const s = document.getElementById('leadSuccess');
+      s.style.display = 'flex';
+    }
   </script>
 </section>
 
 <footer>
-  <div class="logo">Invoice<span>IQ</span></div>
-  <p>© 2025 InvoiceIQ. UAE E-Invoicing Technology Partner.</p>
+  <div class="logo">Tax<span>aura</span></div>
+  <p>© 2026 Taxaura. UAE E-Invoicing Technology Partner.</p>
   <p style="font-size:.8rem;color:var(--muted);">Confidential — Partner Program</p>
 </footer>
 
