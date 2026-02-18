@@ -558,11 +558,13 @@
       formData.append('firm', firm);
       formData.append('email', email);
       formData.append('phone', phone);
-      fetch('/', { method: 'POST', body: formData })
-        .catch(() => {}); // silently handle if not on Netlify
-      document.getElementById('leadForm').style.display = 'none';
-      document.getElementById('leadNote').style.display = 'none';
-      document.getElementById('leadSuccess').classList.add('visible');
+      fetch('/', { method: 'POST', body: formData }).catch(() => {});
+      const form = document.getElementById('leadForm');
+      const note = document.getElementById('leadNote');
+      const success = document.getElementById('leadSuccess');
+      form.style.setProperty('display', 'none', 'important');
+      note.style.setProperty('display', 'none', 'important');
+      success.style.setProperty('display', 'flex', 'important');
     }
   </script>
 </section>
