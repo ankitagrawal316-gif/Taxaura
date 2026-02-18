@@ -522,7 +522,7 @@
 <section class="cta-section" id="cta">
   <h2>Ready to Own the<br>E-Invoicing Mandate?</h2>
   <p>Join the accounting and advisory firms already building long-term technology revenue with Taxaura. Let's talk.</p>
-  <form class="cta-form" id="leadForm" name="taxaura-leads" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+  <form class="cta-form" id="leadForm" name="taxaura-leads" method="POST" action="/?submitted=true#cta" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return validateLead()">
     <input type="hidden" name="form-name" value="taxaura-leads">
     <p style="display:none"><input name="bot-field"></p>
     <div class="cta-form-row">
@@ -533,7 +533,7 @@
       <input type="email" name="email" id="f-email" placeholder="Work email *">
       <input type="tel" name="phone" id="f-phone" placeholder="Phone number *">
     </div>
-    <button type="button" class="btn-primary" onclick="submitLead()">Book Discovery Call →</button>
+    <button type="submit" class="btn-primary">Book Discovery Call →</button>
   </form>
   <div class="cta-success" id="leadSuccess">
     <div class="success-icon">🎉</div>
@@ -543,29 +543,26 @@
   </div>
   <p class="cta-note" id="leadNote">No commitment. 30-minute call. We'll show you exactly how the model works for your firm size.</p>
   <script>
-    function submitLead() {
+    function validateLead() {
       const name = document.getElementById('f-name').value.trim();
       const firm = document.getElementById('f-firm').value.trim();
       const email = document.getElementById('f-email').value.trim();
       const phone = document.getElementById('f-phone').value.trim();
       if (!name || !firm || !email || !phone) {
         alert('Please fill in all fields to continue.');
-        return;
+        return false;
       }
-      const formData = new FormData();
-      formData.append('form-name', 'taxaura-leads');
-      formData.append('name', name);
-      formData.append('firm', firm);
-      formData.append('email', email);
-      formData.append('phone', phone);
-      fetch('/', { method: 'POST', body: formData }).catch(() => {});
-      const form = document.getElementById('leadForm');
-      const note = document.getElementById('leadNote');
-      const success = document.getElementById('leadSuccess');
-      form.style.setProperty('display', 'none', 'important');
-      note.style.setProperty('display', 'none', 'important');
-      success.style.setProperty('display', 'flex', 'important');
+      return true;
     }
+    // Show success state if redirected back with ?submitted=true
+    window.addEventListener('DOMContentLoaded', function() {
+      if (window.location.search.includes('submitted=true')) {
+        document.getElementById('leadForm').style.setProperty('display','none','important');
+        document.getElementById('leadNote').style.setProperty('display','none','important');
+        document.getElementById('leadSuccess').style.setProperty('display','flex','important');
+        document.getElementById('cta').scrollIntoView({behavior:'smooth'});
+      }
+    });
   </script>
 </section>
 
