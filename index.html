@@ -526,12 +526,12 @@
     <input type="hidden" name="form-name" value="taxaura-leads">
     <p style="display:none"><input name="bot-field"></p>
     <div class="cta-form-row">
-      <input type="text" name="name" id="f-name" placeholder="Your name">
-      <input type="text" name="firm" id="f-firm" placeholder="Firm name">
+      <input type="text" name="name" id="f-name" placeholder="Your name *">
+      <input type="text" name="firm" id="f-firm" placeholder="Firm name *">
     </div>
     <div class="cta-form-row">
-      <input type="email" name="email" id="f-email" placeholder="Work email">
-      <input type="tel" name="phone" id="f-phone" placeholder="Phone number">
+      <input type="email" name="email" id="f-email" placeholder="Work email *">
+      <input type="tel" name="phone" id="f-phone" placeholder="Phone number *">
     </div>
     <button type="button" class="btn-primary" onclick="submitLead()">Book Discovery Call →</button>
   </form>
@@ -548,8 +548,8 @@
       const firm = document.getElementById('f-firm').value.trim();
       const email = document.getElementById('f-email').value.trim();
       const phone = document.getElementById('f-phone').value.trim();
-      if (!name || !email) {
-        alert('Please enter at least your name and email to continue.');
+      if (!name || !firm || !email || !phone) {
+        alert('Please fill in all fields to continue.');
         return;
       }
       const formData = new FormData();
